@@ -291,7 +291,8 @@ function StatsBase.fit!(m::AbstractGLM; verbose::Bool=false, maxiter::Integer=30
         tol = kwargs[:convTol]
     end
     if !issubset(keys(kwargs), (:maxIter, :minStepFac, :convTol))
-        throw(ArgumentError("unsupported keyword argument"))
+        badkeys = setdiff(keys(kwargs), (:maxIter, :minStepFac, :convTol))
+        throw(ArgumentError("unsupported keyword arguments: $(badkeys)"))
     end
 
     _fit!(m, verbose, maxiter, minstepfac, tol, start)
